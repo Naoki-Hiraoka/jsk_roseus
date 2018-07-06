@@ -460,7 +460,7 @@
    (wireframe
     (apply #'wireframe->marker-msg eusgeom header args))
    ((derivedp eusgeom body)
-    (let ((tp (send eusgeom :body-type)))
+    (let ((tp (car (send eusgeom :body-type))))
       (case tp
         (:box (apply #'cube->marker-msg eusgeom header args))
         (:cylinder (apply #'cylinder->marker-msg eusgeom header args))
