@@ -25,19 +25,18 @@
      (let* ((header (instance std_msgs::header :init
                               :stamp (ros::time-now)
                               :frame_id "/test_id"))
-            (cyl-msg (cylinder->marker-msg cyl header))
-	    (cb-msg (cube->marker-msg cb header
+            (cyl-msg (eusobj->marker-msg cyl header))
+	    (cb-msg (eusobj->marker-msg cb header
 				      :color (float-vector 0 1 0) :alpha 0.5))
-	    (sp-msg (sphere->marker-msg sp header
+	    (sp-msg (eusobj->marker-msg sp header
 					:color (float-vector 0 0 1) :alpha 0.5))
-            (l-msg (line->marker-msg l header
+            (l-msg (eusobj->marker-msg l header
                                      :color (float-vector 1 1 0) :alpha 0.5))
-            (f-msg (faces->marker-msg (list f) header
+            (f-msg (eusobj->marker-msg (list f) header
                                       :color (float-vector 0 1 1)))
 	    (all-msg (instance visualization_msgs::MarkerArray :init))
 	    )
        (send *tfb* :send-transform (make-coords) "/tmp" "/test_id")
-
        ;; for single msg
        (ros::publish *pub-cylinder-topic* cyl-msg)
        (ros::publish *pub-cube-topic* cb-msg)
