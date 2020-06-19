@@ -90,12 +90,13 @@
                                return-success))
                    (setf (get trans :pddl-state) (cons (rmn (send n :name))
                                                        (rmn (send (cdar (last act)) :name))))
-                   (when (< 1 (length act))
+                   (while (< 1 (length act))
                      (setq trans
                            (send sm :add-transition (get n :func-name) (get (cdar act) :func-name)
                                  return-fail))
                      (setf (get trans :pddl-state) (cons (rmn (send n :name))
-                                                         (rmn (send (cdar act) :name))))))))
+                                                         (rmn (send (cdar act) :name))))
+                     (setq act (cdr act))))))
            (t
             (cond ((null act))
                   (t
@@ -104,12 +105,13 @@
                                return-success))
                    (setf (get trans :pddl-state) (cons (rmn (send n :name))
                                                        (rmn (send (cdar (last act)) :name))))
-                   (when (< 1 (length act))
+                   (while (< 1 (length act))
                      (setq trans
                            (send sm :add-transition name (rmnl (send (cdar act) :name))
                                  return-fail))
                      (setf (get trans :pddl-state) (cons (rmn (send n :name))
                                                          (rmn (send (cdar act) :name))))
+                     (setq act (cdr act))
                      )))))
           ))
   
